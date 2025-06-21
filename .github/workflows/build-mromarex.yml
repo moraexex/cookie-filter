@@ -6,23 +6,24 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Install PyInstaller
         run: pip install pyinstaller
 
       - name: Build EXE
-        run: pyinstaller --noconfirm --onefile --windowed mromarex.py
+        run: pyinstaller --onefile --noconsole --name Mromarex mromarex_cookie_tool.py
 
-      - name: Upload EXE to Release
+      - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
           name: Mromarex-EXE
-          path: dist/mromarex.exe
+          path: dist/Mromarex.exe
