@@ -1,5 +1,8 @@
 name: Build EXE for Windows
 
+permissions:
+  contents: write
+
 on:
   release:
     types: [created]
@@ -27,5 +30,3 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: dist/filter_cookies_gui.exe
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
