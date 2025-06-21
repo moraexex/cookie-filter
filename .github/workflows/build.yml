@@ -1,0 +1,31 @@
+name: Build EXE for Windows
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install pyinstaller
+        run: pip install pyinstaller
+
+      - name: Build EXE
+        run: pyinstaller --onefile --windowed filter_cookies_gui.py
+
+      - name: Upload EXE to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/filter_cookies_gui.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
